@@ -1,0 +1,45 @@
+<div class="container">
+
+  <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Name" #Cname required>
+          <input class="form-control mr-sm-2" type="text" placeholder="Age" #Cage required>
+          <input class="form-control mr-sm-2" type="text" placeholder="Country" #Ccountry required>
+          <button (click)="addCandidate($event, Cname, Cage, Ccountry)" class="btn btn-outline-success my-2 my-sm-0" type="submit">Add new Candidate</button>
+        </form>
+
+    </div>
+
+<h2>{{title}}</h2>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Age</th>
+                  <th>Country</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let candidate of candidates">
+                <tr>
+                  <td>
+                    <span *ngIf="!candidate.isEditMode">{{candidate.name}}</span>
+                    <input *ngIf="candidate.isEditMode" type="text" [value]="candidate.name" (keypress)="updateCandidateName($event, candidate)">
+                    
+                  </td>
+                  <td>
+                   <span *ngIf="!candidate.isEditMode"> {{candidate.age}}</span>
+                    <input *ngIf="candidate.isEditMode" type="text" [value]="candidate.age" (keypress)="updateCandidateAge($event, candidate)">
+                    </td>
+                  <td>
+                    <span *ngIf="!candidate.isEditMode">{{candidate.country}}</span>
+                    <input *ngIf="candidate.isEditMode" type="text" [value]="candidate.country" (keypress)="updateCandidateCountry($event, candidate)">
+                    </td>
+
+                  <td><input *ngIf="candidate.isEditMode" type="button" value="Cancel" (click)="setEditState(candidate, false)" class="btn btn-warning"></td>
+                  <td><input (click)="setEditState(candidate, true)" type="button" class="btn btn-default pull-right" value="Edit"></td>
+                  <td><input (click)="deleteCandidate(candidate)" type="button" class="btn btn-danger pull-right" value="Delete"></td>
+                </tr>
+                 
+                </tbody>
+            </table>
+          </div>
